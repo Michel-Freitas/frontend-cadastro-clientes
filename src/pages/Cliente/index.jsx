@@ -1,11 +1,15 @@
+import './index.css';
+
 import React, { useState, useEffect } from 'react';
 import { Table, Badge, Button } from 'react-bootstrap';
+import { useHistory } from 'react-router-dom';
 import api from './../../services/api';
 import { format } from 'date-fns';
 
 const Cliente = props => {
 
     const [clientes, setClientes] = useState([]);
+    const history = useHistory();
 
     useEffect(() => {
         listClientes();
@@ -42,10 +46,17 @@ const Cliente = props => {
         });
     }
 
+    function newCliente() {
+        history.push('clientes_cadastro');
+    }
+
     return (
         <div className="container">
             <br />
-            <h2> Clientes </h2>
+            <div className="cliente-header">
+                <h2> Clientes </h2>
+                <Button variant="success" size="sm" onClick={newCliente} >Novo Cliente</Button>
+            </div>
             <br />
             <Table striped bordered hover className="text-center">
                 <thead>
