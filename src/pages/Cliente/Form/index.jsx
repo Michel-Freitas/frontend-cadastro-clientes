@@ -8,6 +8,7 @@ const FormCliente = props => {
 
     const history = useHistory();
     const { id } = useParams();
+    const [validateForm, setValidateForm] = useState(false);
     const [model, setModel] = useState({
         ativo: true
     });
@@ -26,19 +27,25 @@ const FormCliente = props => {
     }
 
     async function onSubmit(event) {
-        event.preventDefault();
-
-        if(id !== undefined) {
-            await api.put(`clientes/${id}`, model).then(result => {
-                result.status === 200 ? alert("Edição finalizada com Sucesso!") : alert("Erro ao editar cliente")
-            });
-        } else {
-            await api.post('clientes', model).then(result => {
-                result.status === 200 ? alert("Cadastro finalizado com Sucesso!") : alert("Erro ao cadastrar cliente")
-            });
+        if(event.currentTarget.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
         }
+        setValidateForm(true);
 
-        backToClientList();
+        if(event.currentTarget.checkValidity() === true) {
+            event.preventDefault();
+            if(id !== undefined) {
+                await api.put(`clientes/${id}`, model).then(result => {
+                    result.status === 200 ? alert("Edição finalizada com Sucesso!") : alert("Erro ao editar cliente")
+                });
+            } else {
+                await api.post('clientes', model).then(result => {
+                    result.status === 200 ? alert("Cadastro finalizado com Sucesso!") : alert("Erro ao cadastrar cliente")
+                });
+            }
+            backToClientList();
+        }
     }
 
     async function findClientId(idClient) {
@@ -72,26 +79,26 @@ const FormCliente = props => {
             </div>
             <br />
             <div className="container">
-                <Form onSubmit={e => onSubmit(e)} >
+                <Form onSubmit={e => onSubmit(e)} noValidate validated={validateForm} >
                     <Form.Group>
                         <Form.Label>Nome</Form.Label>
-                        <Form.Control type="text" name="nome" value={model.nome} onChange={e => updateModel(e)}/>
+                        <Form.Control type="text" name="nome" required value={model.nome} onChange={e => updateModel(e)}/>
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>Email</Form.Label>
-                        <Form.Control type="text" name="email" value={model.email} onChange={e => updateModel(e)}/>
+                        <Form.Control type="email" name="email" required value={model.email} onChange={e => updateModel(e)}/>
                     </Form.Group>
                     <Row>
                         <Col>
                             <Form.Group>
                                 <Form.Label>CPF</Form.Label>
-                                <Form.Control type="text" name="cpf" value={model.cpf} onChange={e => updateModel(e)}/>
+                                <Form.Control type="text" name="cpf" required value={model.cpf} onChange={e => updateModel(e)}/>
                             </Form.Group>
                         </Col>
                         <Col>
                             <Form.Group>
                                 <Form.Label>Data Nascimento</Form.Label>
-                                <Form.Control type="date" name="dataNascimento" value={formatDate(model.dataNascimento)} onChange={e => updateModel(e)}/>
+                                <Form.Control type="date" name="dataNascimento" required value={formatDate(model.dataNascimento)} onChange={e => updateModel(e)}/>
                             </Form.Group>
                         </Col>
                     </Row>

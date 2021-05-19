@@ -47,9 +47,7 @@ const Cliente = props => {
                     </td>
                     <td>
                         <Button size="sm" onClick={() => editClient(cliente.id)} >Editar</Button> {' '}
-                        <Button size="sm" variant={ cliente.ativo ? "warning" : "success"}>
-                            { cliente.ativo ? "Desativar" : "Ativar"}
-                        </Button> {' '}
+                        <Button size="sm" variant="warning">Detalhar</Button> {' '}
                         <Button size="sm" variant="danger">Excluir</Button>
                     </td>
                 </tr>
