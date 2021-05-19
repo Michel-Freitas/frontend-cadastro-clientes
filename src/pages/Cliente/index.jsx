@@ -23,6 +23,14 @@ const Cliente = props => {
         return format(new Date(data), "dd/MM/yyyy");
     }
 
+    function newClient() {
+        history.push('clientes_cadastro');
+    }
+
+    function editClient(id) {
+        history.push(`clientes_cadastro/${id}`);
+    }
+
     function itensTableClientes() {
         return clientes.map(cliente => {
             return (
@@ -38,16 +46,15 @@ const Cliente = props => {
                         </Badge>
                     </td>
                     <td>
-                        <Button size="sm">Editar</Button> {' '}
-                        <Button size="sm" variant="danger">Desativar</Button>
+                        <Button size="sm" onClick={() => editClient(cliente.id)} >Editar</Button> {' '}
+                        <Button size="sm" variant={ cliente.ativo ? "warning" : "success"}>
+                            { cliente.ativo ? "Desativar" : "Ativar"}
+                        </Button> {' '}
+                        <Button size="sm" variant="danger">Excluir</Button>
                     </td>
                 </tr>
             )
         });
-    }
-
-    function newCliente() {
-        history.push('clientes_cadastro');
     }
 
     return (
@@ -55,7 +62,7 @@ const Cliente = props => {
             <br />
             <div className="cliente-header">
                 <h2> Clientes </h2>
-                <Button variant="success" size="sm" onClick={newCliente} >Novo Cliente</Button>
+                <Button variant="success" size="sm" onClick={newClient} >Novo Cliente</Button>
             </div>
             <br />
             <Table striped bordered hover className="text-center">

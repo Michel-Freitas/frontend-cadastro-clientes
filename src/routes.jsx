@@ -12,6 +12,7 @@ const Routes = props => {
             <Route path="/"  exact component={Home}/>
             <Route path="/clientes"  exact component={Cliente}/>
             <Route path="/clientes_cadastro"  exact component={ClienteForm}/>
+            <Route path="/clientes_cadastro/:id"  exact component={ClienteForm}/>
             <Route path="/enderecos"  exact component={Endereco}/>
         </Switch>
     )
