@@ -15,12 +15,19 @@ const Cliente = props => {
         listClientes();
     }, []);
 
+    function formatDate(data) {
+        return format(new Date(data), "dd/MM/yyyy");
+    }
+
     async function listClientes() {
         await api.get('clientes').then(result => setClientes(result.data));
     }
 
-    function formatDate(data) {
-        return format(new Date(data), "dd/MM/yyyy");
+    async function deleteCliente(id){
+        await api.delete(`clientes/${id}`).then(result => {
+            listClientes();
+            result.status === 200 ? alert("Cliente excluído com sucesso!") : alert("Erro ao excluir cliente");
+        });
     }
 
     function newClient() {
@@ -48,7 +55,7 @@ const Cliente = props => {
                     <td>
                         <Button size="sm" onClick={() => editClient(cliente.id)} >Editar</Button> {' '}
                         <Button size="sm" variant="warning">Detalhar</Button> {' '}
-                        <Button size="sm" variant="danger">Excluir</Button>
+                        <Button size="sm" variant="danger" onClick={() => deleteCliente(cliente.id)}>Excluir</Button>
                     </td>
                 </tr>
             )
