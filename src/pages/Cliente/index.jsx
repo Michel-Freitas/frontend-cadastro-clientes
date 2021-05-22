@@ -38,6 +38,10 @@ const Cliente = props => {
         history.push(`clientes_cadastro/${id}`);
     }
 
+    function viewClient(id){
+        history.push(`cliente/${id}`);
+    }
+
     function itensTableClientes() {
         return clientes.map(cliente => {
             return (
@@ -54,7 +58,7 @@ const Cliente = props => {
                     </td>
                     <td>
                         <Button size="sm" onClick={() => editClient(cliente.id)} >Editar</Button> {' '}
-                        <Button size="sm" variant="warning">Detalhar</Button> {' '}
+                        <Button size="sm" variant="warning" onClick={() => viewClient(cliente.id)} >Visualizar</Button> {' '}
                         <Button size="sm" variant="danger" onClick={() => deleteCliente(cliente.id)}>Excluir</Button>
                     </td>
                 </tr>
