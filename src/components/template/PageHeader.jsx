@@ -2,7 +2,7 @@ import React from 'react';
 import { Nav, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-const Header = props => {
+const PageHeader = props => {
     return (
         <Navbar bg="primary" expand="lg" variant="dark">
             <Navbar.Brand href="#home">Controle de Clientes</Navbar.Brand>
@@ -17,4 +17,4 @@ const Header = props => {
     )
 }
 
-export default Header
+export default PageHeader
