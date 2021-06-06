@@ -1,21 +1,19 @@
 import React from 'react';
 import { Route, Switch } from 'react-router';
 
-import Home from './pages/Home';
-import Cliente from './pages/Cliente';
-import ClienteForm from './pages/Cliente/Form';
-import ClienteView from './pages/Cliente/ClientView';
-import Endereco from './pages/Endereco';
+import Home from './views/home/Dashboard';
+import ListClient from './views/client/ListClient';
+import RegisterClient from './views/client/RegisterClient';
+import DetailsClient from './views/client/DetailsClient';
 
 const Routes = props => {
     return (
         <Switch>
             <Route path="/"  exact component={Home}/>
-            <Route path="/clientes"  exact component={Cliente}/>
-            <Route path="/clientes_cadastro"  exact component={ClienteForm}/>
-            <Route path="/clientes_cadastro/:id"  exact component={ClienteForm}/>
-            <Route path="/cliente/:id" exact component={ClienteView} />
-            <Route path="/enderecos"  exact component={Endereco}/>
+            <Route path="/clientes"  exact component={ListClient}/>
+            <Route path="/registerclient"  exact component={RegisterClient}/>
+            <Route path="/detailcliente/:idClient"  exact component={DetailsClient}/>
+            <Route path="/editclient/:idClient"  exact component={RegisterClient}/>
         </Switch>
     )
 }
